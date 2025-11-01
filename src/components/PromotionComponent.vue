@@ -1,10 +1,9 @@
 <template>
- 
   <div class="promotion" :style="{ backgroundColor: bgColor }">
     <div class="text">
       <h3>{{ title }}</h3>
       <p v-if="description">{{ description }}</p>
-      <button :style="{ backgroundColor: buttonColor }">{{ buttonText }}</button>
+      <button :style="{ backgroundColor: buttonColor }" @click="shopNow">{{ buttonText }}</button>
     </div>
   <img :src="image" alt="promo" :class="['promo-image', isLatest ? 'latest' : 'other']" />
   </div>
@@ -26,6 +25,11 @@ export default {
     buttonColor: {
       type: String,
       default: '#4caf50'
+    }
+  },
+  methods: {
+    shopNow() {
+      alert("Let's shop: " + this.title);
     }
   }
 }
