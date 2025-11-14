@@ -1,5 +1,5 @@
 <template>
-  <div class="category" :style="{ backgroundColor: bgColor }">
+  <div class="category" :style="{ backgroundColor: bgColor }" @click="selectCategory">
     <img :src="image" :alt="title" />
     <p :style="{ color: '#253D4E' }">{{ title }}</p>
     <span>{{ items }} items</span>
@@ -14,6 +14,11 @@ export default {
     title: String,
     items: Number,
     bgColor: String
+  },
+  methods: {
+    selectCategory() {
+      alert("Selected category: " + this.title);
+    }
   }
 }
 </script>
@@ -40,5 +45,4 @@ export default {
   color: #B6B6B6;
   font-size: 12px;
 }
-
 </style>
