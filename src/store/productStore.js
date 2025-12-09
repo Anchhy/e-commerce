@@ -95,7 +95,7 @@ export const useProductStore = defineStore('product', {
 
     // Fallback data with dynamic image loading
     fallbackCategories: [
-      { id: 1, name: 'Cake & Milk', group: 'Milks & Dairies', image: loadImage('cake&milk.png'), itemsCount: 14, bgColor: '#f2fce4' },
+      { id: 1, name: 'Cake & Milk', group: 'Milks & Dairies', image: loadImage('cake.png'), itemsCount: 14, bgColor: '#f2fce4' },
       { id: 2, name: 'Peach', group: 'Fruits', image: loadImage('peach.png'), itemsCount: 17, bgColor: '#fffceb' },
       { id: 3, name: 'Oganic Kiwi', group: 'Fruits', image: loadImage('kivi.png'), itemsCount: 21, bgColor: '#ecffec' },
       { id: 4, name: 'Red Apple', group: 'Fruits', image: loadImage('apple.png'), itemsCount: 68, bgColor: '#feefea' },

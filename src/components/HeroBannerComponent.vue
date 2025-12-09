@@ -20,12 +20,19 @@ import bannerImage from '../images/fresh-apples-banner.png';
 </script>
 
 <style scoped>
+.hero-image img {
+  width: 750px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.1));
+}
+
 .hero {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: linear-gradient(135deg, #fff9e5 0%, #fefbe8 50%, #fff3e0 100%);
-  padding: 60px 80px;
+  padding: 0 80px 60px;
   border-radius: 20px;
   margin: 30px auto;
   max-width: 1400px;
@@ -106,16 +113,9 @@ import bannerImage from '../images/fresh-apples-banner.png';
   position: relative;
 }
 
-.hero-image img {
-  width: 550px;
-  height: auto;
-  object-fit: contain;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.1));
-}
-
 @media (max-width: 1200px) {
   .hero {
-    padding: 50px 40px;
+    padding: 0 40px 50px;
   }
 
   .hero-text h1 {
@@ -131,7 +131,7 @@ import bannerImage from '../images/fresh-apples-banner.png';
   .hero {
     flex-direction: column;
     text-align: center;
-    padding: 40px 30px;
+    padding: 0 30px 40px;
   }
 
   .hero-text {

@@ -43,5 +43,5 @@ const categoryName = computed(() => {
 .breadcrumb { margin-top:8px; color:#6f7e7a; font-size:13px; display:flex; gap:8px; align-items:center; }
 .breadcrumb a { color:inherit; text-decoration:none; }
 .sep { color:#cfdcd6; }
-.hot-space { min-height: calc(100vh - 220px); } /* keeps page minimal like screenshot */
+.hot-space { min-height: calc(100vh - 220px); } 
 </style>
