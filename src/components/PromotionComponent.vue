@@ -1,89 +1,141 @@
 <template>
-  <div class="promotion" :style="{ backgroundColor: bgColor }">
-    <div class="text">
-      <h3>{{ title }}</h3>
-      <p v-if="description">{{ description }}</p>
-      <button :style="{ backgroundColor: buttonColor }" @click="shopNow">{{ buttonText }}</button>
+  <div
+    class="promotion-card"
+    role="button"
+    tabindex="0"
+    @click="$emit('click', promotion)"
+    @keydown.enter="$emit('click', promotion)"
+    :style="{ backgroundColor: promotion.bgColor || '#fff' }"
+    :aria-label="promotion.title"
+  >
+    <div class="promo-inner">
+      <div class="promo-content">
+        <h3 class="promo-title">{{ promotion.title }}</h3>
+        <p v-if="promotion.subtitle" class="promo-sub">{{ promotion.subtitle }}</p>
+        <button
+          class="promo-cta"
+          :style="{ backgroundColor: promotion.buttonColor || '#1ba98e' }"
+          @click.stop="$emit('click', promotion)"
+        >
+          {{ promotion.buttonText || 'Shop Now' }}
+          <span class="arrow">→</span>
+        </button>
+      </div>
+      <div class="promo-image" v-if="promotion.image" aria-hidden="true">
+        <img :src="promotion.image" :alt="promotion.title" />
+      </div>
     </div>
-  <img :src="image" alt="promo" :class="['promo-image', isLatest ? 'latest' : 'other']" />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'PromotionComponent',
-  props: {
-    title: String,
-    description: String,
-    buttonText: String,
-    image: String,
-    bgColor: String,
-    isLatest: {
-      type: Boolean,
-      default: false
-    },
-    buttonColor: {
-      type: String,
-      default: '#4caf50'
-    }
-  },
-  methods: {
-    shopNow() {
-      alert("Let's shop: " + this.title);
-    }
-  }
-}
+<script setup>
+defineProps({ promotion: Object });
+defineEmits(['click']);
 </script>
 
 <style scoped>
-.promotion {
+/* Card: larger radius, tighter padding */
+.promotion-card {
   position: relative;
-  padding: 16px;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 300px;
+  border-radius: 24px;           /* more rounded like ref */
+  padding: 28px 26px;            /* slightly tighter */
+  min-height: 280px;             /* consistent height across cards */
+  box-shadow: 0 8px 28px rgba(15, 52, 40, 0.08);
+  transition: transform .18s ease, box-shadow .18s ease;
+  overflow: visible; /* let big images extend outside the card edge */
 }
-.text {
-  padding: 30px;
-  position: relative;
-  z-index: 1;
-  max-width: 66%;
-}
-h3 {
-  font-size: 22px;
-  margin-top:40px;
-  margin-bottom: 40px;
-  line-height: 1.1;
-  color: #2d3748;
-}
-button {
-  border: none;
-  color: rgba(243, 243, 244, 0.881);
-  padding-top: 8px;
-  padding-right: 15px;
-  padding-bottom: 8px;
-  padding-left: 15px;
-  border-radius: 3px;
-  font-size: 14px;
-  cursor: pointer;
-  width: 109.83333587646484px;
-  height: 31px;
-  opacity: 1;
-  gap: 10px;
-  transform: rotate(0deg);
-}
-.promo-image {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: auto;
-  object-fit: contain;
+.promotion-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(10, 30, 24, 0.12);
 }
 
-.promo-image.latest {
-  max-height: 30%;
+/* Layout: center vertically, balanced gap */
+.promo-inner {
+  display: flex;
+  align-items: center;           /* center text and image vertically */
+  justify-content: space-between;
+  gap: 20px;
 }
-.promo-image.other {
-  max-height: 90%;
+
+/* Content: narrower column for more room to the image */
+.promo-content {
+  flex: 1 1 50%;
+  max-width: 500px;
+}
+
+.promo-title {
+  margin: 0 0 14px;
+  font-size: clamp(24px, 2.1vw, 30px);
+  line-height: 1.16;
+  font-weight: 800;
+  color: #253d4e;
+  letter-spacing: -0.2px;
+}
+
+.promo-sub {
+  margin: 0 0 18px;
+  color: rgba(37, 61, 78, 0.72);
+  font-size: 14px;
+}
+
+/* Button: compact and clean */
+.promo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(12, 40, 30, 0.12);
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.promo-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(12, 38, 30, 0.16); }
+.promo-cta .arrow { font-size: 16px; }
+
+/* Image: contained, slight right nudge */
+.promo-image {
+  position: relative;
+  flex: 1 1 50%;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.promo-image img {
+  width: 480px;                  /* large but contained */
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  position: relative;
+  right: -18px;                   /* subtle overflow like ref */
+  bottom: 0;
+  filter: drop-shadow(0 18px 36px rgba(10, 20, 14, 0.12));
+  transition: transform .16s ease, filter .16s ease;
+}
+
+.promotion-card:hover .promo-image img {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 22px 44px rgba(10, 20, 14, 0.14));
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .promotion-card { min-height: 260px; padding: 26px 22px; }
+  .promo-image img { width: 400px; right: -6px; }
+}
+@media (max-width: 900px) {
+  .promo-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .promo-content { max-width: 100%; }
+  .promo-image { width: 100%; justify-content: center; min-height: auto; }
+  .promo-image img { position: relative; right: 0; width: 300px; }
+}
+@media (max-width: 520px) {
+  .promo-image img { width: 220px; }
+  .promo-cta { width: 100%; justify-content: center; }
 }
 </style>
