@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,36 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Admin can do everything
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('admin') ? true : null;
+        });
+
+        // Users management
+        Gate::define('users.manage', function ($user) {
+            return $user->hasPermission('users.manage');
+        });
+
+        // Products permissions
+        Gate::define('products.create', function ($user) {
+            return $user->hasPermission('products.create');
+        });
+        Gate::define('products.update', function ($user) {
+            return $user->hasPermission('products.update');
+        });
+        Gate::define('products.delete', function ($user) {
+            return $user->hasPermission('products.delete');
+        });
+
+        // Categories permissions
+        Gate::define('categories.create', function ($user) {
+            return $user->hasPermission('categories.create');
+        });
+        Gate::define('categories.update', function ($user) {
+            return $user->hasPermission('categories.update');
+        });
+        Gate::define('categories.delete', function ($user) {
+            return $user->hasPermission('categories.delete');
+        });
     }
 }

@@ -3,48 +3,64 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
-    // GET /api/products - Get all products
     public function getProducts()
     {
-        // GET /api/products
-        return ['message' => 'Getting list of products'];
+        return Product::all();
     }
 
-    // POST /api/products - Create a new product
     public function createProduct(Request $request)
     {
-        // POST /api/products
-        return ['message' => 'Creating 1 new product'];
+        abort_unless(auth()->user()->can('products.create'), 403);
+
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'pricing' => 'required|numeric',
+            'description' => 'nullable|string',
+            'images' => 'nullable|json',
+        ]);
+
+        $validated['created_by'] = auth()->id();
+        return Product::create($validated);
     }
 
-    // GET /api/products/{productId} - Get a specific product
     public function getProduct($productId)
     {
-        // GET /api/products/{productId}
-        return ['message' => 'Getting 1 product base on given productId'];
+        return Product::findOrFail($productId);
     }
 
-    // PATCH /api/products/{productId} - Update a product
     public function updateProduct(Request $request, $productId)
     {
-        // PATCH /api/products/{productId}
-        return ['message' => 'Updating 1 product base on given productId'];
+        abort_unless(auth()->user()->can('products.update'), 403);
+
+        $product = Product::findOrFail($productId);
+        $validated = $request->validate([
+            'name' => 'sometimes|string',
+            'category_id' => 'sometimes|exists:categories,id',
+            'pricing' => 'sometimes|numeric',
+            'description' => 'sometimes|nullable|string',
+            'images' => 'sometimes|nullable|json',
+        ]);
+
+        $product->update($validated);
+        return $product;
     }
 
-    // DELETE /api/products/{productId} - Delete a product
     public function deleteProduct($productId)
     {
-        // DELETE /api/products/{productId}
-        return ['message' => 'Deleting 1 product base on given productId'];
+        abort_unless(auth()->user()->can('products.delete'), 403);
+
+        $product = Product::findOrFail($productId);
+        $product->delete();
+        return ['message' => 'Product deleted'];
     }
 
-    // GET /api/categories/{categoryId}/products - Get products by category
     public function getProductsByCategory($categoryId)
     {
-        // GET /api/categories/{categoryId}/products
-        return ['message' => 'Getting list of products base on given categoryId'];
+        return Product::where('category_id', $categoryId)->get();
     }
 }

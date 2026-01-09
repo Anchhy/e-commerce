@@ -3,41 +3,71 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CategoryController extends Controller
 {
-    // GET /api/categories - Get all categories
+    use AuthorizesRequests;
     public function getCategories()
     {
-        // GET /api/categories
-        return ['message' => 'Getting list of categories'];
+        return Category::all();
     }
 
-    // POST /api/categories - Create a new category
     public function createCategory(Request $request)
     {
-        // POST /api/categories
-        return ['message' => 'Creating 1 new category'];
+        abort_unless(auth()->user()->can('categories.create'), 403);
+
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'assigned_to' => 'nullable|exists:users,id',
+        ]);
+
+        return Category::create($validated);
     }
 
-    // GET /api/categories/{categoryId} - Get a specific category
     public function getCategory($categoryId)
     {
-        // GET /api/categories/{categoryId}
-        return ['message' => 'Getting 1 category base on given categoryId'];
+        $category = Category::findOrFail($categoryId);
+        $this->authorize('view', $category);
+        return $category;
     }
 
-    // PATCH /api/categories/{categoryId} - Update a category
     public function updateCategory(Request $request, $categoryId)
     {
-        // PATCH /api/categories/{categoryId}
-        return ['message' => 'Updating 1 category base on given categoryId'];
+        abort_unless(auth()->user()->can('categories.update'), 403);
+
+        $category = Category::findOrFail($categoryId);
+        $validated = $request->validate([
+            'name' => 'sometimes|string',
+            'assigned_to' => 'sometimes|nullable|exists:users,id',
+        ]);
+
+        $category->update($validated);
+        return $category;
     }
 
-    // DELETE /api/categories/{categoryId} - Delete a category
     public function deleteCategory($categoryId)
     {
-        // DELETE /api/categories/{categoryId}
-        return ['message' => 'Deleting 1 category base on given categoryId'];
+        abort_unless(auth()->user()->can('categories.delete'), 403);
+
+        $category = Category::findOrFail($categoryId);
+        $category->delete();
+        return ['message' => 'Category deleted'];
+    }
+
+    public function updateCategoryStatus(Request $request, $categoryId)
+    {
+        $category = Category::findOrFail($categoryId);
+        
+        // Use policy: only assigned staff can update status
+        $this->authorize('updateStatus', $category);
+
+        $validated = $request->validate([
+            'status' => 'required|string|in:pending,in-progress,completed',
+        ]);
+
+        $category->update($validated);
+        return $category;
     }
 }
