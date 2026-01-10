@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -75,5 +77,29 @@ class User extends Authenticatable
                 $q->where('name', $permission);
             })
             ->exists();
+    }
+
+    /**
+     * A user can be an author
+     */
+    public function author(): HasOne
+    {
+        return $this->hasOne(Author::class);
+    }
+
+    /**
+     * A user can have many audiences (subscriptions)
+     */
+    public function audiences(): HasMany
+    {
+        return $this->hasMany(Audience::class);
+    }
+
+    /**
+     * A user wrote many comments
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 }

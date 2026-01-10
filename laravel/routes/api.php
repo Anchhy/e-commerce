@@ -5,6 +5,24 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\EloquentTestController;
+
+// Eloquent Test APIs (Public - no authentication)
+Route::controller(EloquentTestController::class)->prefix('eloquent')->group(function() {
+    // Create endpoints
+    Route::post('/create-authors', 'createAuthors');
+    Route::post('/create-articles', 'createArticles');
+    Route::post('/create-audiences', 'createAudiences');
+    Route::post('/subscribe', 'subscribe');
+    Route::post('/create-comments', 'createComments');
+    
+    // Get endpoints
+    Route::get('/author-articles', 'authorArticles');
+    Route::get('/article-audiences', 'articleAudiences');
+    Route::get('/author-audiences', 'authorAudiences');
+    Route::get('/audience-comments', 'audienceComments');
+    Route::get('/all-comments', 'allComments');
+});
 
 // API Login - returns Passport token
 Route::post('/login', function (Request $request) {
