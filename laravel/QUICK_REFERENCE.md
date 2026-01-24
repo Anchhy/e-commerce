@@ -1,6 +1,6 @@
 # TP6 Quick Reference Guide
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Run the verification script
 ```bash

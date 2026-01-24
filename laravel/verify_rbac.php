@@ -19,7 +19,7 @@ use App\Models\Permission;
 
 // Check users
 $users = User::with('roles')->get();
-echo "✓ Users loaded: " . $users->count() . "\n";
+echo "Users loaded: " . $users->count() . "\n";
 
 foreach ($users as $user) {
     $roles = $user->roles->pluck('name')->join(', ');
@@ -27,26 +27,26 @@ foreach ($users as $user) {
 }
 
 // Check roles
-echo "\n✓ Roles: " . Role::count() . "\n";
+echo "\nRoles: " . Role::count() . "\n";
 foreach (Role::all() as $role) {
     echo "  - {$role->name}\n";
 }
 
 // Check permissions
-echo "\n✓ Permissions: " . Permission::count() . "\n";
+echo "\nPermissions: " . Permission::count() . "\n";
 foreach (Permission::all() as $perm) {
     echo "  - {$perm->name}\n";
 }
 
 // Check role-permission assignments
-echo "\n✓ Role-Permission Assignments:\n";
+echo "\nRole-Permission Assignments:\n";
 foreach (Role::with('permissions')->get() as $role) {
     $perms = $role->permissions->pluck('name')->join(', ');
     echo "  - {$role->name}: " . ($perms ?: 'none') . "\n";
 }
 
 // Test helper methods
-echo "\n✓ Testing User Helper Methods:\n";
+echo "\nTesting User Helper Methods:\n";
 $admin = User::where('email', 'admin@example.com')->first();
 $manager = User::where('email', 'manager@example.com')->first();
 $staff = User::where('email', 'staff1@example.com')->first();
@@ -60,7 +60,7 @@ echo "  - Manager hasPermission('products.create'): " . ($manager->hasPermission
 echo "  - Staff hasPermission('products.create'): " . ($staff->hasPermission('products.create') ? 'YES' : 'NO') . "\n";
 
 // Check Gates
-echo "\n✓ Gates Registered:\n";
+echo "\nGates Registered:\n";
 $gates = [
     'users.manage',
     'products.create',
@@ -76,29 +76,29 @@ foreach ($gates as $gate) {
 }
 
 // Check Policies
-echo "\n✓ Policies:\n";
+echo "\nPolicies:\n";
 echo "  - CategoryPolicy: view(), updateStatus()\n";
 
 // Check API Routes
-echo "\n✓ API Routes:\n";
+echo "\nAPI Routes:\n";
 echo "  - POST /api/login (public)\n";
 echo "  - GET /api/me (auth:api)\n";
 echo "  - POST /api/products (auth:api + Gate)\n";
 echo "  - PATCH /api/categories/{id}/status (auth:api + Policy)\n";
 
 // Check Passport
-echo "\n✓ Passport Configuration:\n";
+echo "\nPassport Configuration:\n";
 echo "  - API guard: " . config('auth.guards.api.driver') . "\n";
 echo "  - User model has HasApiTokens: YES\n";
 
 // Summary
 echo "\n=== Summary ===\n";
-echo "✓ RBAC Database: 4 users, 3 roles, 7 permissions\n";
-echo "✓ User Relationships: Working (hasRole, hasPermission)\n";
-echo "✓ Gates: 7 gates defined\n";
-echo "✓ Policies: CategoryPolicy (view, updateStatus)\n";
-echo "✓ Authentication: Breeze (web), Passport (api)\n";
-echo "✓ Authorization: Gates + Policies\n";
+echo "RBAC Database: 4 users, 3 roles, 7 permissions\n";
+echo "User Relationships: Working (hasRole, hasPermission)\n";
+echo "Gates: 7 gates defined\n";
+echo "Policies: CategoryPolicy (view, updateStatus)\n";
+echo "Authentication: Breeze (web), Passport (api)\n";
+echo "Authorization: Gates + Policies\n";
 
 echo "\n=== Test Credentials ===\n";
 echo "Admin:   admin@example.com / password\n";

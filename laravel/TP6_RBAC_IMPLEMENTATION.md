@@ -94,7 +94,7 @@ Complete RBAC (Role-Based Access Control) system for a Project Tracker with both
 ### Database
 - [database/seeders/RolePermissionSeeder.php](database/seeders/RolePermissionSeeder.php) - Seeds roles, permissions, users
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 ### 1. Install Dependencies
 ```bash

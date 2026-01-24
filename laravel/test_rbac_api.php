@@ -44,9 +44,9 @@ function testRequest($title, $method, $url, $token = null, $data = null) {
     $result = json_decode($response, true);
     
     if ($httpCode >= 200 && $httpCode < 300) {
-        echo green("✓ Success ($httpCode)") . "\n";
+        echo green("PASS ($httpCode)") . "\n";
     } else {
-        echo red("✗ Failed ($httpCode)") . "\n";
+        echo red("FAIL ($httpCode)") . "\n";
     }
     
     echo "Response: " . json_encode($result, JSON_PRETTY_PRINT) . "\n";
@@ -268,12 +268,12 @@ if ($categoryId) {
 
 // Summary
 echo yellow("\n=== Test Summary ===\n");
-echo green("✓ Authentication with Passport tokens\n");
-echo green("✓ Gate-based authorization (products.create, categories.create/update/delete)\n");
-echo green("✓ Policy-based authorization (view, updateStatus)\n");
-echo green("✓ Admin bypass (can do everything)\n");
-echo green("✓ Manager permissions (create/update products & categories)\n");
-echo green("✓ Staff restrictions (only view assigned & update status)\n");
+echo green("Authentication with Passport tokens\n");
+echo green("Gate-based authorization (products.create, categories.create/update/delete)\n");
+echo green("Policy-based authorization (view, updateStatus)\n");
+echo green("Admin bypass (can do everything)\n");
+echo green("Manager permissions (create/update products & categories)\n");
+echo green("Staff restrictions (only view assigned & update status)\n");
 
 echo yellow("\n=== Test Credentials ===\n");
 echo "Admin:   admin@example.com / password\n";

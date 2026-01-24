@@ -339,5 +339,3 @@ docker exec -w /var/www app php artisan tinker --execute="
 - Check your client's origin headers if using frontend
 
 ---
-
-Enjoy! 🚀

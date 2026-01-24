@@ -125,7 +125,7 @@ Authorization: Bearer {{ADMIN_TOKEN}}
 
 ---
 
-### 8. Create Product (Admin) ✅ Should Succeed
+### 8. Create Product (Admin) - Should Succeed
 **POST** `/products`
 
 **Headers:**
@@ -148,7 +148,7 @@ Content-Type: application/json
 
 ---
 
-### 9. Create Product (Manager) ✅ Should Succeed
+### 9. Create Product (Manager) - Should Succeed
 **POST** `/products`
 
 **Headers:**
@@ -193,7 +193,7 @@ Content-Type: application/json
 
 ---
 
-### 11. Update Product (Manager) ✅ Should Succeed
+### 11. Update Product (Manager) - Should Succeed
 **PATCH** `/products/1`
 
 **Headers:**
@@ -224,7 +224,7 @@ Authorization: Bearer {{STAFF_TOKEN}}
 
 ---
 
-### 13. Delete Product (Admin) ✅ Should Succeed
+### 13. Delete Product (Admin) - Should Succeed
 **DELETE** `/products/1`
 
 **Headers:**
@@ -246,7 +246,7 @@ Authorization: Bearer {{ADMIN_TOKEN}}
 
 ---
 
-### 15. Create Category (Admin, assign to Staff 1) ✅ Should Succeed
+### 15. Create Category (Admin, assign to Staff 1) - Should Succeed
 **POST** `/categories`
 
 **Headers:**
@@ -269,7 +269,7 @@ Content-Type: application/json
 
 ---
 
-### 16. Create Category (Manager) ✅ Should Succeed
+### 16. Create Category (Manager) - Should Succeed
 **POST** `/categories`
 
 **Headers:**
@@ -309,7 +309,7 @@ Content-Type: application/json
 
 ## Category Policies
 
-### 18. View Category (Assigned Staff) ✅ Should Succeed
+### 18. View Category (Assigned Staff) - Should Succeed
 **GET** `/categories/1`
 
 **Headers:**
@@ -337,7 +337,7 @@ Authorization: Bearer {{MANAGER_TOKEN}}
 
 ---
 
-### 20. View Category (Admin) ✅ Should Succeed (Bypass)
+### 20. View Category (Admin) - Should Succeed (Bypass)
 **GET** `/categories/1`
 
 **Headers:**
@@ -349,7 +349,7 @@ Authorization: Bearer {{ADMIN_TOKEN}}
 
 ---
 
-### 21. Update Category Status (Assigned Staff) ✅ Should Succeed
+### 21. Update Category Status (Assigned Staff) - Should Succeed
 **PATCH** `/categories/1/status`
 
 **Headers:**
@@ -391,7 +391,7 @@ Content-Type: application/json
 
 ---
 
-### 23. Update Category Status (Admin) ✅ Should Succeed (Bypass)
+### 23. Update Category Status (Admin) - Should Succeed (Bypass)
 **PATCH** `/categories/1/status`
 
 **Headers:**
@@ -411,7 +411,7 @@ Content-Type: application/json
 
 ---
 
-### 24. Update Category (Manager) ✅ Should Succeed
+### 24. Update Category (Manager) - Should Succeed
 **PATCH** `/categories/2`
 
 **Headers:**
@@ -461,7 +461,7 @@ Authorization: Bearer {{MANAGER_TOKEN}}
 
 ---
 
-### 27. Delete Category (Admin) ✅ Should Succeed
+### 27. Delete Category (Admin) - Should Succeed
 **DELETE** `/categories/2`
 
 **Headers:**
@@ -488,21 +488,21 @@ Authorization: Bearer {{ADMIN_TOKEN}}
 
 | Request | Role    | Action                 | Expected Result |
 |---------|---------|------------------------|-----------------|
-| 8       | Admin   | Create Product         | ✅ 200 OK        |
-| 9       | Manager | Create Product         | ✅ 200 OK        |
-| 10      | Staff   | Create Product         | ❌ 403           |
-| 15      | Admin   | Create Category        | ✅ 200 OK        |
-| 16      | Manager | Create Category        | ✅ 200 OK        |
-| 17      | Staff   | Create Category        | ❌ 403           |
-| 18      | Staff   | View Assigned Category | ✅ 200 OK        |
-| 19      | Manager | View Others Category   | ❌ 403           |
-| 20      | Admin   | View Any Category      | ✅ 200 OK        |
-| 21      | Staff   | Update Status          | ✅ 200 OK        |
-| 22      | Manager | Update Status          | ❌ 403           |
-| 23      | Admin   | Update Status          | ✅ 200 OK        |
-| 25      | Staff   | Update Category        | ❌ 403           |
-| 26      | Manager | Delete Category        | ❌ 403           |
-| 27      | Admin   | Delete Category        | ✅ 200 OK        |
+| 8       | Admin   | Create Product         | 200 OK          |
+| 9       | Manager | Create Product         | 200 OK          |
+| 10      | Staff   | Create Product         | 403             |
+| 15      | Admin   | Create Category        | 200 OK          |
+| 16      | Manager | Create Category        | 200 OK          |
+| 17      | Staff   | Create Category        | 403             |
+| 18      | Staff   | View Assigned Category | 200 OK          |
+| 19      | Manager | View Others Category   | 403             |
+| 20      | Admin   | View Any Category      | 200 OK          |
+| 21      | Staff   | Update Status          | 200 OK          |
+| 22      | Manager | Update Status          | 403             |
+| 23      | Admin   | Update Status          | 200 OK          |
+| 25      | Staff   | Update Category        | 403             |
+| 26      | Manager | Delete Category        | 403             |
+| 27      | Admin   | Delete Category        | 200 OK          |
 
 ## Notes
 

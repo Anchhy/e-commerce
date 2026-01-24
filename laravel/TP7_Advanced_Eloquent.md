@@ -205,11 +205,11 @@ php artisan migrate
 
 ## Migration Status
 
-✅ All migration files created successfully  
-✅ All foreign keys configured with cascade delete  
-✅ Polymorphic relationship implemented for Comments  
-✅ Migrations executed and tables created in database  
-✅ Files renamed to follow project naming convention (0001_01_01_*)
+All migration files created successfully  
+All foreign keys configured with cascade delete  
+Polymorphic relationship implemented for Comments  
+Migrations executed and tables created in database  
+Files renamed to follow project naming convention (0001_01_01_*)
 
 ---
 
@@ -411,7 +411,7 @@ public function comments(): HasMany
 
 ## Testing Results
 
-### Tinker Tests Passed ✅
+### Tinker Tests Passed
 
 All relationships tested and working:
 
@@ -435,12 +435,12 @@ All relationships tested and working:
 
 ## Application Status
 
-✅ Laravel server running on `http://127.0.0.1:8000`  
-✅ All migrations created and executed  
-✅ All models created with relationships  
-✅ All 25 tests passing  
-✅ All polymorphic relationships working correctly  
-✅ All hasManyThrough relationships working correctly
+Laravel server running on `http://127.0.0.1:8000`  
+All migrations created and executed  
+All models created with relationships  
+All 25 tests passing  
+All polymorphic relationships working correctly  
+All hasManyThrough relationships working correctly
 
 ---
 
@@ -696,45 +696,45 @@ Route::controller(EloquentTestController::class)->prefix('eloquent')->group(func
 
 ## Testing Results
 
-### Data Created Successfully ✅
+### Data Created Successfully
 
 **Authors:**
-- ✓ Author Sok (User: Sok)
-- ✓ Author Sao (User: Sao)
-- ✓ Author Dara (User: Dara)
+- Author Sok (User: Sok)
+- Author Sao (User: Sao)
+- Author Dara (User: Dara)
 
 **Articles:**
-- ✓ Climate changes in the last 3 years (by Author Sok)
-- ✓ Global warming is in its critical stage (by Author Sok)
-- ✓ Computers in the next generation (by Author Sao)
-- ✓ Quantum computers, is it coming? (by Author Sao)
-- ✓ Chemistry in nature form (by Author Dara)
-- ✓ The origin of water (by Author Dara)
+- Climate changes in the last 3 years (by Author Sok)
+- Global warming is in its critical stage (by Author Sok)
+- Computers in the next generation (by Author Sao)
+- Quantum computers, is it coming? (by Author Sao)
+- Chemistry in nature form (by Author Dara)
+- The origin of water (by Author Dara)
 
 **Audiences (Subscriptions):**
-- ✓ Samnang: 3 subscriptions
-- ✓ Veasna: 3 subscriptions
-- ✓ Ratana: 2 subscriptions
+- Samnang: 3 subscriptions
+- Veasna: 3 subscriptions
+- Ratana: 2 subscriptions
 - **Total:** 8 audience records
 
 **Comments (Polymorphic):**
-- ✓ 2 comments on Articles
-- ✓ 1 comment on Author
-- ✓ 1 comment on Audience
+- 2 comments on Articles
+- 1 comment on Author
+- 1 comment on Audience
 
-### All Relationships Verified ✅
+### All Relationships Verified
 
 | # | Relationship | Implementation | Status |
 |---|---|---|---|
-| 1 | Author has one User | belongsTo | ✅ Working |
-| 2 | Audience has one User | belongsTo | ✅ Working |
-| 3 | Author wrote multiple Articles | hasMany | ✅ Working |
-| 4 | Article have many Audiences | hasMany | ✅ Working |
-| 5 | Audience have many Comments | morphMany | ✅ Working |
-| 6 | Article have many Comments | morphMany | ✅ Working |
-| 7 | Author have many Comments | morphMany | ✅ Working |
-| 8 | User wrote many Comments | hasMany | ✅ Working |
-| 9 | Author has many Audiences | hasManyThrough | ✅ Working |
+| 1 | Author has one User | belongsTo | Working |
+| 2 | Audience has one User | belongsTo | Working |
+| 3 | Author wrote multiple Articles | hasMany | Working |
+| 4 | Article have many Audiences | hasMany | Working |
+| 5 | Audience have many Comments | morphMany | Working |
+| 6 | Article have many Comments | morphMany | Working |
+| 7 | Author have many Comments | morphMany | Working |
+| 8 | User wrote many Comments | hasMany | Working |
+| 9 | Author has many Audiences | hasManyThrough | Working |
 
 ---
 

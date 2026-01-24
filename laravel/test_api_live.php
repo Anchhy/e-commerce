@@ -38,7 +38,7 @@ function apiRequest($method, $endpoint, $token = null, $data = null) {
 }
 
 function printTest($title, $result, $expectedCode = 200) {
-    $status = $result['code'] == $expectedCode ? '✅' : '❌';
+    $status = $result['code'] == $expectedCode ? 'PASS' : 'FAIL';
     echo "\n{$status} {$title}\n";
     echo "   Status: {$result['code']} (expected: {$expectedCode})\n";
     if ($result['error']) {
@@ -208,10 +208,42 @@ if ($productId) {
 echo "\n" . str_repeat("=", 60) . "\n";
 echo "  TEST SUMMARY\n";
 echo str_repeat("=", 60) . "\n";
-echo "✅ Authentication: Passport tokens working\n";
-echo "✅ Gates: Permission-based authorization working\n";
-echo "✅ Policies: Object-level authorization working\n";
-echo "✅ Admin Bypass: Admin can do everything\n";
-echo "✅ Manager Permissions: Can create/update products & categories\n";
-echo "✅ Staff Restrictions: Can only view assigned & update status\n";
+echo "Authentication: Passport tokens working\n";
+echo "Gates: Permission-based authorization working\n";
+echo "Policies: Object-level authorization working\n";
+echo "Admin Bypass: Admin can do everything\n";
+echo "Manager Permissions: Can create/update products & categories\n";
+echo "Staff Restrictions: Can only view assigned & update status\n";
 echo "\n";
+
+// Login and get token
+$response = file_get_contents('http://localhost:8000/api/login', false, stream_context_create([
+    'http' => [
+        'method' => 'POST',
+        'header' => 'Content-Type: application/json',
+        'content' => json_encode([
+            'email' => 'admin@example.com',
+            'password' => 'password'
+        ])
+    ]
+]));
+
+$token = json_decode($response)->token;
+
+// Use token for authenticated request
+$response = file_get_contents('http://localhost:8000/api/products', false, stream_context_create([
+    'http' => [
+        'method' => 'POST',
+        'header' => [
+            'Authorization: Bearer ' . $token,
+            'Content-Type: application/json'
+        ],
+        'content' => json_encode([
+            'name' => 'Laptop',
+            'category_id' => 1,
+            'pricing' => 999.99
+        ])
+    ]
+]));
+
+echo $response;
